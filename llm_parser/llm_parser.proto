@@ -1,0 +1,258 @@
+syntax = "proto3";
+
+package llm_parser;
+
+option go_package = "github.com/mimersagentic/grpc/llm_parser";
+
+// TaskType represents the type of task
+enum TaskType {
+  TASK_TYPE_UNSPECIFIED = 0;
+  TASK_TYPE_IMPLEMENTATION = 1;
+  TASK_TYPE_DEBUGGING = 2;
+  TASK_TYPE_REFACTORING = 3;
+  TASK_TYPE_ANALYSIS = 4;
+  TASK_TYPE_TESTING = 5;
+  TASK_TYPE_RESEARCH = 6;
+}
+
+// Priority represents task priority
+enum Priority {
+  PRIORITY_UNSPECIFIED = 0;
+  PRIORITY_HIGH = 1;
+  PRIORITY_MEDIUM = 2;
+  PRIORITY_LOW = 3;
+}
+
+// Complexity represents estimated task complexity
+enum Complexity {
+  COMPLEXITY_UNSPECIFIED = 0;
+  COMPLEXITY_SIMPLE = 1;
+  COMPLEXITY_MODERATE = 2;
+  COMPLEXITY_COMPLEX = 3;
+}
+
+// LLMTaskHeader contains the header information
+message LLMTaskHeader {
+  TaskType task_type = 1;
+  string title = 2;
+  string context_id = 3;
+  Priority priority = 4;
+  Complexity complexity = 5;
+  repeated string dependencies = 6;
+}
+
+// ExecutiveSummary contains high-level task information
+message ExecutiveSummary {
+  string objective = 1;
+  string expected_outcome = 2;
+  string success_criteria = 3;
+}
+
+// SystemArchitecture contains architecture information
+message SystemArchitecture {
+  repeated string components = 1;
+  repeated string technologies = 2;
+  repeated string patterns = 3;
+}
+
+// CurrentState contains current system state
+message CurrentState {
+  repeated string existing_code = 1;
+  repeated string known_issues = 2;
+  repeated string constraints = 3;
+}
+
+// DomainKnowledge contains domain-specific information
+message DomainKnowledge {
+  repeated string business_logic = 1;
+  repeated string user_requirements = 2;
+  repeated string integration_points = 3;
+}
+
+// Context contains all contextual information
+message Context {
+  SystemArchitecture system_architecture = 1;
+  CurrentState current_state = 2;
+  DomainKnowledge domain_knowledge = 3;
+}
+
+// Subtask represents a single subtask
+message Subtask {
+  string name = 1;
+  string action = 2;
+  string input = 3;
+  string output = 4;
+  string validation = 5;
+}
+
+// PrimaryTask represents the main task
+message PrimaryTask {
+  string id = 1;
+  TaskType type = 2;
+  string description = 3;
+}
+
+// TaskDefinition contains the main task and subtasks
+message TaskDefinition {
+  PrimaryTask primary_task = 1;
+  repeated Subtask subtasks = 2;
+}
+
+// CodeRequirements contains code-related requirements
+message CodeRequirements {
+  string language = 1;
+  string framework = 2;
+  repeated string libraries = 3;
+  repeated string patterns = 4;
+}
+
+// QualityStandards contains quality requirements
+message QualityStandards {
+  string code_style = 1;
+  string testing = 2;
+  string documentation = 3;
+  string performance = 4;
+}
+
+// SecurityConsiderations contains security requirements
+message SecurityConsiderations {
+  string authentication = 1;
+  string authorization = 2;
+  string data_protection = 3;
+}
+
+// TechnicalSpecifications contains technical requirements
+message TechnicalSpecifications {
+  CodeRequirements code_requirements = 1;
+  QualityStandards quality_standards = 2;
+  SecurityConsiderations security_considerations = 3;
+}
+
+// ImplementationGuidance contains implementation guidance
+message ImplementationGuidance {
+  repeated string approach = 1;
+  repeated string best_practices = 2;
+  repeated string common_pitfalls = 3;
+  map<string, string> decision_points = 4;
+}
+
+// TestCase represents a single test case
+message TestCase {
+  string name = 1;
+  string input = 2;
+  string expected = 3;
+  string validation = 4;
+}
+
+// ValidationAndTesting contains validation and testing information
+message ValidationAndTesting {
+  repeated string acceptance_criteria = 1;
+  repeated TestCase test_cases = 2;
+  map<string, string> integration_points = 3;
+}
+
+// CodeReference represents a code reference
+message CodeReference {
+  string type = 1; // file, function, class
+  string path = 2;
+  string name = 3;
+  string description = 4;
+}
+
+// ExternalDependency represents an external dependency
+message ExternalDependency {
+  string type = 1; // library, service
+  string name = 2;
+  string version = 3;
+  string purpose = 4;
+}
+
+// ResourcesAndReferences contains resources and references
+message ResourcesAndReferences {
+  repeated CodeReference code_references = 1;
+  map<string, string> documentation = 2;
+  repeated ExternalDependency external_dependencies = 3;
+}
+
+// Deliverable represents a single deliverable
+message Deliverable {
+  string name = 1;
+  string format = 2;
+  string location = 3;
+  string content = 4;
+}
+
+// SuccessMetrics contains success metrics
+message SuccessMetrics {
+  repeated string functional = 1;
+  repeated string performance = 2;
+  repeated string quality = 3;
+}
+
+// OutputSpecification contains output specifications
+message OutputSpecification {
+  repeated Deliverable deliverables = 1;
+  SuccessMetrics success_metrics = 2;
+}
+
+// LLMSuperPowerTask represents the complete task structure
+message LLMSuperPowerTask {
+  LLMTaskHeader header = 1;
+  ExecutiveSummary executive_summary = 2;
+  Context context = 3;
+  TaskDefinition task_definition = 4;
+  TechnicalSpecifications technical_specifications = 5;
+  ImplementationGuidance implementation_guidance = 6;
+  ValidationAndTesting validation_and_testing = 7;
+  ResourcesAndReferences resources_and_references = 8;
+  OutputSpecification output_specification = 9;
+  int64 parsed_at = 10; // Unix timestamp
+}
+
+// LLMParserService provides parsing and validation services
+service LLMParserService {
+  // ParseMarkdown parses markdown content to LLMSuperPowerTask
+  rpc ParseMarkdown(ParseMarkdownRequest) returns (ParseMarkdownResponse);
+  
+  // ValidateTask validates a LLMSuperPowerTask
+  rpc ValidateTask(ValidateTaskRequest) returns (ValidateTaskResponse);
+  
+  // GetHelp returns help information
+  rpc GetHelp(GetHelpRequest) returns (GetHelpResponse);
+}
+
+// ParseMarkdownRequest contains markdown content to parse
+message ParseMarkdownRequest {
+  string markdown_content = 1;
+  bool verbose = 2;
+}
+
+// ParseMarkdownResponse contains the parsed task
+message ParseMarkdownResponse {
+  LLMSuperPowerTask task = 1;
+  repeated string warnings = 2;
+  string error = 3;
+}
+
+// ValidateTaskRequest contains task to validate
+message ValidateTaskRequest {
+  LLMSuperPowerTask task = 1;
+}
+
+// ValidateTaskResponse contains validation results
+message ValidateTaskResponse {
+  bool valid = 1;
+  repeated string errors = 2;
+  repeated string warnings = 3;
+}
+
+// GetHelpRequest for help information
+message GetHelpRequest {
+  string topic = 1; // Optional specific help topic
+}
+
+// GetHelpResponse contains help information
+message GetHelpResponse {
+  string help_text = 1;
+  repeated string available_topics = 2;
+}
