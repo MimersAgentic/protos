@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package mimer_agentic.planning;
+
+import "google/protobuf/timestamp.proto";
+
+// Enum for the status of a single task
+enum TaskStatus {
+  STATUS_UNSPECIFIED = 0;
+  PENDING = 1;
+  IN_PROGRESS = 2;
+  COMPLETED = 3;
+  BLOCKED = 4;
+}
+
+// Represents a single, standalone task
+message LooseTask {
+  string task_id = 1;           // Unique identifier for the task
+  string title = 2;             // A short, descriptive title
+  string description = 3;       // A more detailed explanation of what needs to be done
+  TaskStatus status = 4;        // The current status of the task
+  
+  string assignee_id = 5;       // ID of the agent or user responsible
+  
+  repeated string dependency_task_ids = 6; // List of task_ids this task depends on
+  
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp last_updated = 8;
+}

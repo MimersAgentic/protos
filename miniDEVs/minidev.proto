@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package mimer_agentic.planning;
+
+import "google/protobuf/timestamp.proto";
+import "task.proto"; // Assuming LooseTask is defined in task.proto
+
+// Enum for the overall status of the MiniDev sprint
+enum MiniDevStatus {
+  STATUS_UNSPECIFIED = 0;
+  PLANNED = 1;
+  ACTIVE = 2;
+  COMPLETED = 3;
+  ARCHIVED = 4;
+}
+
+// Represents a full development sprint
+message MiniDev {
+  string sprint_id = 1;         // Unique identifier for the sprint (e.g., "sprint_2024_w34")
+  string sprint_goal = 2;       // The primary objective of this sprint
+  MiniDevStatus status = 3;     // The current status of the sprint
+  
+  repeated LooseTask tasks = 4; // The list of tasks included in this sprint
+  
+  google.protobuf.Timestamp start_date = 5; // Planned start date
+  google.protobuf.Timestamp end_date = 6;   // Planned end date
+  
+  repeated string linked_documents = 7; // Paths or URLs to relevant design docs, etc.
+}
