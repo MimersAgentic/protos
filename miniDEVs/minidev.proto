@@ -2,16 +2,18 @@ syntax = "proto3";
 
 package mimer_agentic.planning;
 
+option go_package = "github.com/MimersAgentic/protos/miniDEVs";
+
 import "google/protobuf/timestamp.proto";
-import "task.proto"; // Assuming LooseTask is defined in task.proto
+import "miniDEVs/tasks/task.proto"; // Assuming LooseTask is defined in task.proto
 
 // Enum for the overall status of the MiniDev sprint
 enum MiniDevStatus {
-  STATUS_UNSPECIFIED = 0;
-  PLANNED = 1;
-  ACTIVE = 2;
-  COMPLETED = 3;
-  ARCHIVED = 4;
+  MINIDEV_STATUS_UNSPECIFIED = 0;
+  MINIDEV_PLANNED = 1;
+  MINIDEV_ACTIVE = 2;
+  MINIDEV_COMPLETED = 3;
+  MINIDEV_ARCHIVED = 4;
 }
 
 // Represents a full development sprint

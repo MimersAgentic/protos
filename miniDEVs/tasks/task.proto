@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package mimer_agentic.planning;
 
+option go_package = "github.com/MimersAgentic/protos/miniDEVs/tasks";
+
 import "google/protobuf/timestamp.proto";
 
 // Enum for the status of a single task
