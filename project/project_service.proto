@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package project;
+
+option go_package = "github.com/MimersAgentic/gRPC/project";
+
+service ProjectService {
+  rpc GetProjectStructure(GetProjectStructureRequest) returns (GetProjectStructureResponse);
+}
+
+message GetProjectStructureRequest {
+  string path = 1;
+}
+
+message GetProjectStructureResponse {
+  string structure = 1;
+}

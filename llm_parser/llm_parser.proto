@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package llm_parser;
 
-option go_package = "github.com/mimersagentic/grpc/llm_parser";
+option go_package = "github.com/MimersAgentic/gRPC/llm_parser";
 
 // TaskType represents the type of task
 enum TaskType {

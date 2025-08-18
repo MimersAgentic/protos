@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package mimer_agentic.llmgateway;
 
-option go_package = "github.com/MimersAgentic/protos/llmgateway";
+option go_package = "github.com/MimersAgentic/gRPC/github.com/MimersAgentic/protos/llmgateway";
 
 service LLMGateway {
   rpc Prompt(PromptRequest) returns (PromptResponse);
