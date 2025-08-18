@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package memory;
+
+option go_package = "github.com/MimersAgentic/gRPC/memory";
+
+service MemoryService {
+  rpc SaveMemory(SaveRequest) returns (SaveResponse);
+  rpc RetrieveMemory(RetrieveRequest) returns (RetrieveResponse);
+}
+
+message SaveRequest {
+  string session_id = 1;
+  string key = 2;
+  string value = 3;
+}
+
+message SaveResponse {
+  bool success = 1;
+}
+
+message RetrieveRequest {
+  string session_id = 1;
+  string key = 2;
+}
+
+message RetrieveResponse {
+  string value = 1;
+}
