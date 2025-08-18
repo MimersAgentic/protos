@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.2.0
 // - protoc             v6.32.0
-// source: llm_gateway.proto
+// source: protos/llmgateway/llm_gateway.proto
 
 package llmgateway
 
@@ -137,5 +137,5 @@ var LLMGateway_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "llm_gateway.proto",
+	Metadata: "protos/llmgateway/llm_gateway.proto",
 }
