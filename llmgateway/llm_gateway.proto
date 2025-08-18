@@ -2,10 +2,11 @@ syntax = "proto3";
 
 package mimer_agentic.llmgateway;
 
-option go_package = "github.com/MimersAgentic/gRPC/github.com/MimersAgentic/protos/llmgateway";
+option go_package = "github.com/MimersAgentic/gRPC/llmgateway";
 
 service LLMGateway {
   rpc Prompt(PromptRequest) returns (PromptResponse);
+  rpc ChatCompletion(ChatCompletionRequest) returns (ChatCompletionResponse);
 }
 
 message PromptRequest {
@@ -14,4 +15,22 @@ message PromptRequest {
 
 message PromptResponse {
   string text = 1;
+}
+
+message ChatCompletionRequest {
+  repeated Message messages = 1;
+  string model = 2;
+}
+
+message ChatCompletionResponse {
+  repeated Choice choices = 1;
+}
+
+message Message {
+  string role = 1;
+  string content = 2;
+}
+
+message Choice {
+  Message message = 1;
 }
