@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package imageanalysis;
+
+option go_package = "github.com/MimersAgentic/gRPC/imageanalysis";
+
+// The Image Analysis service definition.
+service ImageAnalysis {
+  // Analyzes an image and returns a description.
+  rpc AnalyzeImage (AnalyzeImageRequest) returns (AnalyzeImageResponse) {}
+}
+
+// The request message containing the image URL.
+message AnalyzeImageRequest {
+  string image_url = 1;
+}
+
+// The response message containing the analysis description.
+message AnalyzeImageResponse {
+  string description = 1;
+}
